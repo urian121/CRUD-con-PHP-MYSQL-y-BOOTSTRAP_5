@@ -1,0 +1,47 @@
+body{
+    background-color: #f9f9f9 !important;
+  }
+  .container{
+    background-color: #fff;
+    border-radius: 10px !important;
+  }
+  h1{
+    font-weight: 800;
+    color: blueviolet;
+  }
+  p{
+    font-size: 35px;
+    font-weight: 800;
+    color: orange;
+  }
+  p span{
+    color: crimson;
+  }
+  label{
+    color: #333 !important;
+    font-weight: 500;
+  }
+  .bi-trash:hover{
+    color: #333 !important;
+  }
+  .bi-arrow-clockwise:hover{
+    color: green;
+    font-weight: bold;
+  }
+  a{
+    text-decoration: none;
+  }
+  .bi-arrow-left-circle{
+    color: #666;
+  }
+  .bi-arrow-left-circle:hover{
+    color: green;
+  }
+  .fotoPerfil{
+    margin: 0 auto;
+    max-width: 250px;
+}
+.titleAlumno{
+    color: orange;
+    font-weight: 800;
+}
