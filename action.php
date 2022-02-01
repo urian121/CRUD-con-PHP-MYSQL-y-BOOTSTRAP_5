@@ -5,6 +5,7 @@ setlocale(LC_ALL, 'es_ES');
 
 $metodoAction  = (int) filter_var($_REQUEST['metodo'], FILTER_SANITIZE_NUMBER_INT);
 
+//$metodoAction ==1, es crear un registro nuevo
 if($metodoAction == 1){
 
     $fechaRegistro  = date('d-m-Y H:i:s A', time()); 
@@ -13,13 +14,14 @@ if($metodoAction == 1){
     $sexo           = filter_var($_POST['sexo'], FILTER_SANITIZE_STRING);
     $section        = filter_var($_POST['section'], FILTER_SANITIZE_STRING);
 
+    //Informacion de la foto
     $filename       = $_FILES["foto"]["name"]; //nombre de la foto
     $tipo_foto      = $_FILES['foto']['type']; //tipo de archivo
     $sourceFoto     = $_FILES["foto"]["tmp_name"]; //url temporal de la foto
     $tamano_foto    = $_FILES['foto']['size']; //tamaño del archivo (foto)
 
-     //Se comprueba si la foto a cargar es correcto observando su extensión y tamaño, 100000 = 1 Mega
-if (((strpos($tipo_foto, "png") || strpos($tipo_foto, "jpeg")) && ($tamano_foto < 100000))) {
+//Se comprueba si la foto a cargar es correcto observando su extensión y tamaño, 100000 = 1 Mega 
+if (!((strpos($tipo_foto, "PNG") || strpos($tipo_foto, "jpg") && ($tamano_foto < 100000)))) {
     //código para renombrar la foto 
     $logitudPass 	        = 8;
     $newNameFoto            = substr( md5(microtime()), 1, $logitudPass);
@@ -55,18 +57,18 @@ if (((strpos($tipo_foto, "png") || strpos($tipo_foto, "jpeg")) && ($tamano_foto 
             '".$fechaRegistro."'
         )");
         $resulInsert = mysqli_query($con, $SqlInsertAlumno);
-        print_r( $SqlInsertAlumno);
+        ///print_r( $SqlInsertAlumno);
 
     }
     closedir($miDir);
     header("Location:index.php?a=1");
-    //exit;
+
   }else{
     echo 'Recuerde la Foto debe ser png o jpeg y no mayor a 1 Mega';
     //header("Location:index.php?a=1");
-
   }
 }
+
 
 //Actualizar registro del Alumno
 if($metodoAction == 2){
@@ -77,8 +79,14 @@ if($metodoAction == 2){
     $sexo           = filter_var($_POST['sexo'], FILTER_SANITIZE_STRING);
     $section        = filter_var($_POST['section'], FILTER_SANITIZE_STRING);
 
-    $UpdateAlumno    = ("UPDATE table_alumnos SET namefull='$namefull', cedula='$cedula', sexo='$sexo', section='$section'  WHERE id='$idAlumno' ");
+    $UpdateAlumno    = ("UPDATE table_alumnos
+        SET namefull='$namefull',
+        cedula='$cedula', 
+        sexo='$sexo', 
+        section='$section'
+        WHERE id='$idAlumno' ");
     $resultadoUpdate = mysqli_query($con, $UpdateAlumno);
+
 
     //Verificando si existe foto del alumno para actualizar
     if (!empty($_FILES["foto"]["name"])){
@@ -88,7 +96,7 @@ if($metodoAction == 2){
             $tamano_foto    = $_FILES['foto']['size']; //tamaño del archivo (foto)
 
             //Se comprueba si el archivo a cargar es correcto observando su extensión y tamaño
-        if (!((strpos($tipo_foto, "png") || strpos($tipo_foto, "jpeg")) && ($tamano_foto < 100000))) {
+        if (!((strpos($tipo_foto, "PNG") || strpos($tipo_foto, "jpg") && ($tamano_foto < 100000)))) {
             $logitudPass 	        = 8;
             $newNameFoto            = substr( md5(microtime()), 1, $logitudPass);
             $explode                = explode('.', $filename);
@@ -101,16 +109,17 @@ if($metodoAction == 2){
             $urlFotoAlumno    = $dirLocal.'/'.$nuevoNameFoto; //Ruta donde se almacena la factura.
 
             //Muevo la foto a mi directorio.
-            if(move_uploaded_file($sourceFoto, $urlFotoAlumno)){
-            $updateFotoMascota = ("UPDATE mascotas SET foto_mascota='".$rutaLocal."' WHERE id='".$idMascota."' ");
-            $resultFotoMascota = mysqli_query($con, $updateFotoMascota);
-
+        if(move_uploaded_file($sourceFoto, $urlFotoAlumno)){
+            $updateFoto = ("UPDATE table_alumnos SET foto='$nuevoNameFoto' WHERE id='$idAlumno' ");
+            $resultFoto = mysqli_query($con, $updateFoto);
         }
     }else{
         echo 'Recuerde la Foto debe ser png o jpeg y no mayor a 1 Mega ...';
     }
+  }
+
+  header("Location:formEditar.php?id=$idAlumno");
  }
-}
 
 
 
@@ -120,10 +129,9 @@ if($metodoAction == 3){
 
     $SqlDeleteAlumno = ("DELETE FROM table_alumnos WHERE  id='$idAlumno'");
     $resultDeleteAlumno = mysqli_query($con, $SqlDeleteAlumno);
-    //print_r($SqlDeleteAlumno);
     
     header("Location:index.php?b=1");
-    //exit;
+ 
 }
 
 

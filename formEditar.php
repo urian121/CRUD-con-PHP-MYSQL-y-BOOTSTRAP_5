@@ -7,7 +7,7 @@
     <title>CRUD con PHP - MYSQL y BOOTSTRAP 5 :: WebDeveloper Urian Viera</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="css/home.css">
     <!-- https://icons.getbootstrap.com/ -->
   </head>
 <body>
@@ -64,10 +64,21 @@
         <div class="mb-3">
           <label for="Sexo">Secci&oacute;n</label>
           <select class="form-select" name="section">
-            <option selected>Asigne una sessi&oacute;n</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
+          <?php  
+            if($dataAlumno['section'] =="A"){
+              echo '<option value="A" selected>A</option>';
+              echo '<option value="B">B</option>';
+              echo '<option value="C">C</option>';
+            }elseif($dataAlumno['section'] =="B"){
+              echo '<option value="B" selected>B</option>';
+              echo '<option value="A">A</option>';
+              echo '<option value="C">C</option>';
+            }else{
+              echo '<option value="C" selected>C</option>';
+              echo '<option value="A">A</option>';
+              echo '<option value="B">B</option>';
+            }
+          ?>
           </select>
         </div>
 
