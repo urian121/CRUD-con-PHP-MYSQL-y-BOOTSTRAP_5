@@ -16,10 +16,11 @@
   <div class="row justify-content-md-center">
     <div class="col-md-12">
       <h1 class="text-center mt-3">
-          <a href="./">
+        <a href="./">
           <i class="bi bi-arrow-left-circle"></i>
-          </a>
-            Actualizar Datos del Alumno </h1>
+        </a>
+        Actualizar Datos del Alumno 
+      </h1>
       <hr class="mb-3">
     </div>
 
@@ -108,8 +109,17 @@
   </div>
 </div>
 
+<?php
+  include('mensajes.php'); 
+?>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="  crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+$(function(){
+  $('.toast').toast('show');
+});
+</script>
+
 </body>
 </html>

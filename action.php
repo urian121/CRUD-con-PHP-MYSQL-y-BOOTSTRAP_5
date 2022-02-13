@@ -64,8 +64,7 @@ if (!((strpos($tipo_foto, "PNG") || strpos($tipo_foto, "jpg") && ($tamano_foto <
     header("Location:index.php?a=1");
 
   }else{
-    echo 'Recuerde la Foto debe ser png o jpeg y no mayor a 1 Mega';
-    //header("Location:index.php?a=1");
+    header("Location:index.php?errorimg=1");
   }
 }
 
@@ -114,25 +113,31 @@ if($metodoAction == 2){
             $resultFoto = mysqli_query($con, $updateFoto);
         }
     }else{
-        echo 'Recuerde la Foto debe ser png o jpeg y no mayor a 1 Mega ...';
+        header("Location:index.php?errorimg=1");
     }
   }
 
-  header("Location:formEditar.php?id=$idAlumno");
+  header("Location:formEditar.php?update=1&id=$idAlumno");
  }
 
 
 
 //Eliminar Alumno
 if($metodoAction == 3){
-    $idAlumno = (int) filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);
+    $idAlumno  = (int) filter_var($_REQUEST['id'], FILTER_SANITIZE_NUMBER_INT);
+    $namePhoto = filter_var($_REQUEST['namePhoto'], FILTER_SANITIZE_STRING);
 
     $SqlDeleteAlumno = ("DELETE FROM table_alumnos WHERE  id='$idAlumno'");
     $resultDeleteAlumno = mysqli_query($con, $SqlDeleteAlumno);
     
-    header("Location:index.php?b=1");
+    if($resultDeleteAlumno !=0){
+        $fotoAlumno = "fotosAlumnos/".$namePhoto;
+        unlink($fotoAlumno);
+    }
+    
+    $msj ="Alumno Borrado correctamente.";
+    header("Location:index.php?deletAlumno=1&mensaje=".$msj);
  
 }
-
 
 ?>

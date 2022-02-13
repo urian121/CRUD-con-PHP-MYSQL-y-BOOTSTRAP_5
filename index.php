@@ -11,13 +11,14 @@
     <!-- https://icons.getbootstrap.com/ -->
   </head>
 <body>
-    
+
 <div class="container mt-3">
   <div class="row justify-content-md-center">
     <div class="col-md-12">
       <h1 class="text-center mt-3">CRUD con PHP - MYSQL y BOOTSTRAP 5 </h1>
       <p class="text-center">DESDE CERO, <span> AQUÍ SI APRENDERAS ..!</span> </p>
-      <hr class="mb-3">
+        <a href="./"><i class="bi bi-house"></i></a>
+        <hr class="mb-3">
     </div>
 
 
@@ -111,7 +112,7 @@
                   <i class="bi bi-tv"></i> Ver</a>
                     <a href="formEditar.php?id=<?php echo $dataAlumno['id']; ?>" class="btn btn-info mb-2"   title="Actualizar datos del alumno <?php echo $dataAlumno['namefull']; ?>">
                     <i class="bi bi-arrow-clockwise"></i> Actualizar</a>
-                    <a href="action.php?id=<?php echo $dataAlumno['id']; ?>&metodo=3" class="btn btn-danger mb-2" title="Borrar el alumno <?php echo $dataAlumno['namefull']; ?>">
+                    <a href="action.php?id=<?php echo $dataAlumno['id']; ?>&metodo=3&namePhoto=<?php echo $dataAlumno['foto']; ?>" class="btn btn-danger mb-2" title="Borrar el alumno <?php echo $dataAlumno['namefull']; ?>">
                     <i class="bi bi-trash"></i> Borrar</a>
                   </td>
                 </tr>
@@ -122,12 +123,20 @@
       </div>
     </div>
 
-
   </div>
 </div>
 
+<?php
+  include('mensajes.php'); 
+?>
 
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+$(function(){
+  $('.toast').toast('show');
+});
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
